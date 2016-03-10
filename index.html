@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, maximum-scale=1,user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="zhouyunlong" />
+<meta name="description" content="">
+<title>玩家回馈活动</title>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<style type="text/css">
+@charset "utf-8";
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+html{font-size:10px;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}
+body, div, dl, dt, dd, ul, ol, li,h1, h2, h3, h4, h5, h6, pre, code,form, fieldset, legend, input, button,textarea, p, blockquote, th, td {margin: 0; padding: 0;font-size: 62.5%;} 
+body{background-color:#fff;color:#333;font-size: 1.2rem; height:100%; font-family:'Microsoft YaHei',Helvetica Neue,Helvetica,Arial,sans-serif;}
+ul,li{list-style:none}
+#phoneVerify h3{font-size: 330%;}
+#errorTxt{color: #ff0000; text-align: left; margin: -10px 0 5px; display: none;}
+.success{padding: 5%; font-size: 200%; color:red; display: none; text-align: center;}
+.form-group{margin: 10px;}
+.form-control{background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;box-shadow:0 1px 1px rgba(0,0,0,.075) inset;color:#555;display:block;font-size:14px;height:34px;line-height:1.42857;padding:6px 12px;transition:border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;width:100%}
+.btn{-moz-user-select:none;background-image:none;border:1px solid transparent;border-radius:4px;cursor:pointer;display:inline-block;font-size:14px;font-weight:400;line-height:1.42857;margin-bottom:0;padding:6px 12px;text-align:center;vertical-align:middle;white-space:nowrap}
+.btn-default{background-color:#fff;border-color:#ccc;color:#333}
+.btn-success{background-color:#5cb85c;border-color:#4cae4c;color:#fff;padding:10px 25px}
+</style>
+</head>
+<body>
+	<div class="form-group">
+		<input type="text" class="form-control" id="name" value="" placeholder="请填写用户名">
+	</div>
+	<div class="form-group">
+		<input type="password" class="form-control" id="pas" value="" placeholder="请填写密码">
+	</div>
+	<div class="form-group">
+		<a id="btn" href="1.html" class="btn btn-success">确认登录</a>
+	</div>	
+	<ul>
+		<li>111111</li>
+		<li>222222</li>
+		<li>333333</li>
+	</ul>
+<script>
+	var btn = document.getElementById('btn');
+	btn.onclick = function(){
+		alert("success");
+	}
+	
+	/*
+	var clickBoxs = document.querySelectorAll('li');
+	for(var i=0; i < clickBoxs.length; i++){
+		clickBoxs[i].onclick = test(i);
+	}
+	function test(i){
+		console.log(i);
+		return function(e){
+			console.log("fun" + i)
+		};
+	}
+	*/
+	
+   /*
+	var clickBoxs = document.querySelectorAll('li')
+	for (var i = 0; i < clickBoxs.length; i++){
+		clickBoxs[i].onclick = (function(i){
+			console.log(i)
+			return function(){
+				console.log(i)
+			}
+		})(i);
+	}
+    */
+	//我们本来希望的是点击不同的clickBox，显示不同的i，但事实是无论我们点击哪个clickBox，输出的都是5。下面我们来看下，如何用闭包搞定它。  https://segmentfault.com/a/1190000004365693?_ea=583673
+	
+ 
+	function iteratorFactory(i){
+		var onclick = function(event ){
+			var event = event || window.event;
+			console.log("第" + i+ "个" + event.target.tagName.toLowerCase() || event.srcElement.tagName);
+			
+		}
+		return onclick;
+	}
+	var clickBoxs = document.querySelectorAll('li')
+	for (var i = 0; i < clickBoxs.length; i++){
+		clickBoxs[i].onclick = iteratorFactory(i)
+	}
+ 
+
+</script>
+</body>
+</html>
